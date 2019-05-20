@@ -56,7 +56,7 @@ public class CustomerController {
 	public String showFormUpdate(@RequestParam("customerId") int theId, Model theModel) {
 		//get the customer from the service
 		Customer theCustomer = customerService.getCustomer(theId);
-		//set customer as a model attrubute to pre-populkte hte form
+		//set customer as a model attribute to pre-populate hte form
 		theModel.addAttribute("customer", theCustomer);
 		//send over to out form
 		
@@ -64,5 +64,39 @@ public class CustomerController {
 		return "customer-form";
 		
 	}
+	
+	@GetMapping("/delete")
+	public String deleteCustomer(@RequestParam("customerId") int theId) {
+		customerService.deleteCustomer(theId);
+		return "redirect:/customer/list";
+		
+	}
+	
+	@GetMapping("/search")
+	public String searchCustomer(@RequestParam("theSearchName")String theSearchName, Model theModel) {
+		
+		List<Customer> theCustomers=customerService.searchCustomer(theSearchName);
+		theModel.addAttribute("customers", theCustomers);
+		
+		return "list-customers";
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
